@@ -24,18 +24,17 @@ class ProveYourWork:
         print("-" * 8 + f" token: {self.token}" + "-" * 8)
 
     def activate(self):
-        self.session.get(activate_uri + f'={self.token}')
+        self.session.get(f'{activate_uri}={self.token}')
 
-    def download(self, name, email, description):
+    def download(self, name, email, description, image_filename="image.jpg"):
         response = self.session.get(payload_uri, stream=True)
         self.post_back_to_uri = f"{response.headers['X-Post-Back-To']}"
-        image = response.raw
-        image = Image.open(image)
+        image = Image.open(response.raw)
         draw = ImageDraw.Draw(image)
         draw.text((20, 70),
-                  f"{name}, \n Token:{self.token} \n {email} \n {description}",
+                  f" Name: {name},\n Email: {email} \n Description: {description} \n Token:{self.token}",
                   fill=(1024, 1024, 0))
-        image.save("image.jpg", "JPEG")
+        image.save(image_filename, "JPEG")
 
     def upload(self, code_filename: str, resume_filename: str, image_filename: str, email, fullname):
         files = {
@@ -47,17 +46,21 @@ class ProveYourWork:
             "email": email,
             "name": fullname,
         }
-        response = self.session.post(self.post_back_to_uri, data=data, files=files)
+        self.session.post(self.post_back_to_uri, data=data, files=files)
 
     def run(self):
-        print("-" * 8 + " START " + "-" * 8)
+        print("-" * 8 + " STARTING " + "-" * 8)
         self.start()
-        print("-" * 8 + " ACTIVATE " + "-" * 8)
+        print("-" * 8 + " STARTED " + "-" * 8)
+        print("-" * 8 + " ACTIVATING " + "-" * 8)
         self.activate()
-        print("-" * 8 + " DOWNLOAD " + "-" * 8)
+        print("-" * 8 + " ACTIVATED " + "-" * 8)
+        print("-" * 8 + " DOWNLOADING " + "-" * 8)
         self.download('Oscar Martin', 'o.martin9203@gmail.com', 'Software Developer')
-        print("-" * 8 + " UPLOAD " + "-" * 8)
+        print("-" * 8 + " DOWNLOADED " + "-" * 8)
+        print("-" * 8 + " UPLOADING " + "-" * 8)
         self.upload('code.py', 'cv.pdf', 'image.jpg', 'o.martin9203@gmail.com', 'Oscar Martin Gonzalez-Chavez')
+        print("-" * 8 + " UPLOADED " + "-" * 8)
 
 
 if __name__ == '__main__':
