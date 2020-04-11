@@ -48,20 +48,19 @@ class ProveYourWork:
             "name": fullname,
         }
         response = self.session.post(self.post_back_to_uri, data=data, files=files)
-        print(response, 'response of upload')
 
     def run(self):
-        print(print("-" * 8 + " START " + "-" * 8))
+        print("-" * 8 + " START " + "-" * 8)
         self.start()
-        print(print("-" * 8 + " ACTIVATE " + "-" * 8))
+        print("-" * 8 + " ACTIVATE " + "-" * 8)
         self.activate()
-        print(print("-" * 8 + " DOWNLOAD " + "-" * 8))
+        print("-" * 8 + " DOWNLOAD " + "-" * 8)
         self.download('Oscar Martin', 'o.martin9203@gmail.com', 'Software Developer')
-        print(print("-" * 8 + " UPLOAD " + "-" * 8))
+        print("-" * 8 + " UPLOAD " + "-" * 8)
         self.upload('code.py', 'cv.pdf', 'image.jpg', 'o.martin9203@gmail.com', 'Oscar Martin Gonzalez-Chavez')
 
 
 if __name__ == '__main__':
     test = ProveYourWork()
     test.run()
-    print(print("-" * 8 + " FINISHED OK " + "-" * 8))
+    print("-" * 8 + " FINISHED OK " + "-" * 8)
