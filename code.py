@@ -32,7 +32,7 @@ class ProveYourWork:
         image = Image.open(response.raw)
         draw = ImageDraw.Draw(image)
         draw.text((20, 70),
-                  f" Name: {name},\n Email: {email} \n Description: {description} \n Token:{self.token}",
+                  f" Name: {name},\n Email: {email} \n Description: {description} \n Token: {self.token}",
                   fill=(1024, 1024, 0))
         image.save(image_filename, "JPEG")
 
@@ -64,6 +64,10 @@ class ProveYourWork:
 
 
 if __name__ == '__main__':
-    test = ProveYourWork()
-    test.run()
-    print("-" * 8 + " FINISHED OK " + "-" * 8)
+    try:
+        test = ProveYourWork()
+        test.run()
+        print("-" * 8 + " FINISHED OK " + "-" * 8)
+    except Exception as e:
+        print("-" * 8 + " FINISHED FAILED " + "-" * 8)
+        print(f"ERROR: {e}")
